@@ -336,15 +336,15 @@ with st.sidebar:
         "Profile"
     ]
 
-    for page_name in pages:
-        is_current = (st.session_state.page == page_name)
-        button_type = "primary" if is_current else "secondary"
-        if st.button(page_name, key="nav_" + page_name, use_container_width=True, type=button_type):
-            navigate(page_name)
-            st.rerun()
+    # Safe built-in selection menu that handles transitions smoothly
+    selected_page = st.radio("Navigate", pages, label_visibility="collapsed")
+    if selected_page != st.session_state.page:
+        st.session_state.page = selected_page
+        st.rerun()
 
     st.divider()
     st.caption("Flower plant health assistant")
+
 
 
 # ---------------- 1. HOME ----------------
